@@ -1,0 +1,15 @@
+    #myCanvas{
+        background-color: rgb(171, 169, 170);
+    }
+    .ballSale{
+        position: absolute;
+        height: 50px;
+        width: 50px;        
+        left: 400px;
+        top: 128px; 
+        border-radius: 50%;
+        font-size: 30px;
+        text-align: center;
+        color:white;
+        background: rgb(15, 2, 130);
+    }
