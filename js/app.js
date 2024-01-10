@@ -111,6 +111,12 @@ function reinicarJuego(){
   }
 
   function jugar(){
+document.getElementById('botonJugar').disabled = true;
+document.getElementById('botonReiniciar').disabled=true;
+
+document.getElementById('botonJugar').style.background = 'red';
+document.getElementById('botonReiniciar').style.background = 'red';
+
     $(".ballSale").html('');
     $(".ballSale").removeClass('ballSale')
    
@@ -147,8 +153,13 @@ function reinicarJuego(){
               }                                    
               cantarNumero(nro)
               marcarNumero(nro)
+               document.getElementById('botonJugar').disabled = false;
+    document.getElementById('botonReiniciar').disabled=false;
+    document.getElementById('botonJugar').style.background = 'blue';
+    document.getElementById('botonReiniciar').style.background = 'green';
           }              
     }, 100);
+   
   }
 
 
