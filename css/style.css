@@ -1,0 +1,391 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+    padding-bottom: 80px; /* Espacio para botones flotantes en móvil */
+}
+
+.container {
+    padding: 0;
+    max-width: 100%;
+}
+
+.header-card {
+    margin: 10px auto;
+    background-color: #343a40;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.header-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==================== CANVAS Y CONTROLES ==================== */
+.canvas-section {
+    background-color: #ffc107;
+    padding: 15px;
+    border: 2px solid #343a40;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+#myCanvas {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 26/15;
+    background-color: #aba9aa;
+    border: 2px solid #343a40;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+.controls-container {
+    text-align: center;
+}
+
+.btn-game {
+    width: 100%;
+    max-width: 200px;
+    margin: 8px auto;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+#botonJugar {
+    background-color: #007bff;
+    color: white;
+}
+
+#botonJugar:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#botonReiniciar {
+    background-color: #28a745;
+    color: white;
+}
+
+#botonReiniciar:hover:not(:disabled) {
+    background-color: #1e7e34;
+    transform: scale(1.05);
+}
+
+.btn-game:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ==================== BOTONES FLOTANTES MÓVIL ==================== */
+.mobile-controls {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #343a40;
+    padding: 10px;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-game-mobile {
+    flex: 1;
+    max-width: 45%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.btn-jugar-mobile {
+    background-color: #007bff;
+}
+
+.btn-jugar-mobile:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-reiniciar-mobile {
+    background-color: #28a745;
+}
+
+.btn-reiniciar-mobile:hover:not(:disabled) {
+    background-color: #1e7e34;
+    transform: scale(1.05);
+}
+
+.btn-game-mobile:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ==================== BOLAS SALIENTES ==================== */
+.balls-section {
+    background-color: #ffc107;
+    padding: 15px;
+    border: 2px solid #343a40;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    min-height: 250px;
+    position: relative;
+}
+
+.balls-section table {
+    width: 100%;
+    height: 100%;
+}
+
+.ballSale {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 60px;
+    color: white;
+    background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: 3px solid white;
+    z-index: 10;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+}
+
+/* ==================== TABLA DE NÚMEROS ==================== */
+.numbers-section {
+    background-color: #ffc107;
+    padding: 15px;
+    border: 2px solid #343a40;
+    border-radius: 10px;
+}
+
+.table-bingo {
+    width: 100%;
+    margin: 0;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+.table-bingo thead td {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 10px;
+    border: 2px solid #343a40;
+}
+
+.table-bingo tbody td {
+    background-color: #e9ecef;
+    color: #343a40;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 4px;
+    border: 1px solid #343a40;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.table-bingo tbody td.marked {
+    background-color: white !important;
+    color: red !important;
+    font-size: 1rem !important;
+    transform: scale(1.1);
+}
+
+/* ==================== ANIMACIONES ==================== */
+@keyframes pulse {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+.ballSale.animate {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+/* MÓVILES - Ocultar canvas, mostrar botones flotantes */
+@media (max-width: 767px) {
+    /* Ocultar columna del canvas */
+    .canvas-column {
+        display: none !important;
+    }
+
+    /* Mostrar botones flotantes */
+    .mobile-controls {
+        display: flex;
+    }
+
+    /* Ajustar altura de sección de bolas */
+    .balls-section {
+        min-height: 200px;
+    }
+
+    .ballSale {
+        height: 70px;
+        width: 70px;
+        font-size: 32px;
+        line-height: 70px;
+        top: 10px;
+    }
+
+    /* Ajustar tabla */
+    .table-bingo thead td {
+        font-size: 1rem;
+        padding: 8px 4px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 0.85rem;
+        padding: 6px 2px;
+    }
+
+    /* Reorganizar layout en móvil */
+    .col-12 {
+        margin-bottom: 10px;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 576px) {
+    .header-card {
+        margin: 5px;
+    }
+
+    .balls-section,
+    .numbers-section {
+        padding: 10px;
+    }
+
+    .ballSale {
+        height: 65px;
+        width: 65px;
+        font-size: 30px;
+        line-height: 65px;
+    }
+
+    .btn-game-mobile {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 0.8rem;
+        padding: 5px 2px;
+    }
+}
+
+/* Tablets en vertical */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 720px;
+    }
+
+    /* Canvas arriba completo */
+    .canvas-column {
+        order: -1;
+    }
+
+    /* Bolas salientes y tabla lado a lado */
+    .col-md-6 {
+        width: 50%;
+    }
+
+    #myCanvas {
+        max-width: 260px;
+    }
+
+    .ballSale {
+        height: 70px;
+        width: 70px;
+        font-size: 32px;
+        line-height: 70px;
+    }
+
+    .table-bingo thead td {
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 0.95rem;
+        padding: 8px 4px;
+    }
+}
+
+/* Tablets en horizontal y desktop pequeño */
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+
+    /* Ocultar botones móviles */
+    .mobile-controls {
+        display: none !important;
+    }
+
+    .balls-section {
+        min-height: 500px;
+    }
+
+    .ballSale {
+        height: 80px;
+        width: 80px;
+        font-size: 36px;
+        line-height: 80px;
+    }
+
+    .table-bingo thead td {
+        font-size: 1.3rem;
+        padding: 12px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 1rem;
+        padding: 10px 6px;
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    .table-bingo thead td {
+        font-size: 1.4rem;
+    }
+
+    .table-bingo tbody td {
+        font-size: 1.1rem;
+    }
+}
