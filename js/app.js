@@ -7,9 +7,8 @@ let canvas, ctx;
 
 // ==================== FUNCIONES DE CANVAS ====================
 
-// Crea múltiples bolas con propiedades aleatorias
 function createBalls() {
-    if (!canvas) return; // No crear bolas si no hay canvas
+    if (!canvas) return;
     
     balls.length = 0;
     const colors = ['blue', 'silver', 'green', 'violet', 'cyan', 'purple'];
@@ -28,7 +27,6 @@ function createBalls() {
     }
 }
 
-// Dibuja y actualiza todas las bolas en el canvas
 function drawBalls() {
     if (!canvas || !ctx) return;
     
@@ -42,26 +40,19 @@ function drawBalls() {
 // ==================== FUNCIÓN PRINCIPAL DE JUEGO ====================
 
 function jugar() {
-    // Deshabilitar botones durante la animación
     deshabilitarBotones(true);
-
-    // Limpiar bola anterior
     $('.ballSale').remove();
 
-    // Obtener número aleatorio
     const nro = numeroRandom();
 
-    // Iniciar animación de bolas (solo si existe canvas)
     let freno = null;
     if (canvas && ctx) {
         freno = setInterval(drawBalls, 1);
     }
     
-    // Reproducir sonido de bingo
     const audio = new Audio("mp3s/bolas-de-bingo.mp3");
     audio.play().catch(err => console.log('Error al reproducir audio:', err));
 
-    // Temporizador para detener animación
     let contador = 0;
     const intervalo = setInterval(() => {
         contador++;
@@ -70,18 +61,15 @@ function jugar() {
             if (freno) clearInterval(freno);
             clearInterval(intervalo);
 
-            // Crear y mostrar la bola ganadora
             crearBolaSaliente(nro);
             cantarNumero(nro);
             marcarNumero(nro);
 
-            // Rehabilitar botones
             deshabilitarBotones(false);
         }
     }, 100);
 }
 
-// Reinicia el juego completamente
 function reiniciarJuego() {
     if (confirmarReinicio()) {
         location.reload();
@@ -91,7 +79,6 @@ function reiniciarJuego() {
 // ==================== INICIALIZACIÓN ====================
 
 window.addEventListener('DOMContentLoaded', () => {
-    // Inicializar canvas si existe
     canvas = document.getElementById('myCanvas');
     if (canvas) {
         ctx = canvas.getContext('2d');
@@ -99,25 +86,15 @@ window.addEventListener('DOMContentLoaded', () => {
         balls.forEach(ball => ball.draw(ctx));
     }
 
-    // Generar tabla de números
     generarTabla();
 
-    // Asignar event listeners a botones desktop
     const botonJugar = document.getElementById('botonJugar');
     const botonReiniciar = document.getElementById('botonReiniciar');
     
     if (botonJugar) botonJugar.addEventListener('click', jugar);
     if (botonReiniciar) botonReiniciar.addEventListener('click', reiniciarJuego);
-
-    // Asignar event listeners a botones móviles
-    const botonJugarMobile = document.getElementById('botonJugarMobile');
-    const botonReiniciarMobile = document.getElementById('botonReiniciarMobile');
-    
-    if (botonJugarMobile) botonJugarMobile.addEventListener('click', jugar);
-    if (botonReiniciarMobile) botonReiniciarMobile.addEventListener('click', reiniciarJuego);
 });
 
-// Redimensionar canvas al cambiar tamaño de ventana (solo si existe)
 window.addEventListener('resize', () => {
     if (canvas && ctx) {
         createBalls();
