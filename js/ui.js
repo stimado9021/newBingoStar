@@ -8,20 +8,26 @@ function crearBolaSaliente(numero) {
     bolaSale.textContent = numero;
     document.getElementById("bolaSalientes").appendChild(bolaSale);
 
-    // Animar la bola hacia abajo después de un momento
+    // Animar la bola según el tamaño de pantalla
     setTimeout(() => {
         const windowWidth = window.innerWidth;
-        let targetTop = 150;
-
-        if (windowWidth >= 992) {
-            targetTop = 420;
-        } else if (windowWidth >= 768) {
-            targetTop = 150;
-        } else {
-            targetTop = 130; // Móvil
+        const container = document.getElementById("bolaSalientes");
+        const containerWidth = container.offsetWidth;
+        
+        // En móvil: mover horizontalmente de izquierda a derecha
+        if (windowWidth < 768) {
+            const targetLeft = containerWidth - 80; // Dejar espacio del borde
+            $(bolaSale).animate({ left: targetLeft + 'px' }, 1200, 'swing');
+        } 
+        // En tablet: mover horizontalmente también
+        else if (windowWidth >= 768 && windowWidth < 992) {
+            const targetLeft = containerWidth - 90;
+            $(bolaSale).animate({ left: targetLeft + 'px' }, 1200, 'swing');
         }
-
-        $(bolaSale).animate({ top: targetTop + 'px' }, 1000);
+        // En desktop: mover verticalmente (comportamiento original)
+        else {
+            $(bolaSale).animate({ top: '420px' }, 1000);
+        }
     }, 100);
 }
 

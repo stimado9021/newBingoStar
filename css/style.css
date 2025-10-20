@@ -147,8 +147,9 @@ body {
     border: 2px solid #343a40;
     border-radius: 10px;
     margin-bottom: 15px;
-    min-height: 250px;
+    min-height: 120px; /* Reducido de 250px */
     position: relative;
+    overflow: hidden;
 }
 
 .balls-section table {
@@ -158,21 +159,21 @@ body {
 
 .ballSale {
     position: absolute;
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     text-align: center;
-    line-height: 60px;
+    line-height: 70px;
     color: white;
     background: linear-gradient(145deg, #1e3a8a, #3b82f6);
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     border: 3px solid white;
     z-index: 10;
-    left: 50%;
-    top: 20px;
-    transform: translateX(-50%);
+    left: 10px; /* Inicia a la izquierda */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* ==================== TABLA DE NÚMEROS ==================== */
@@ -218,17 +219,33 @@ body {
 }
 
 /* ==================== ANIMACIONES ==================== */
-@keyframes pulse {
-    0%, 100% {
-        transform: translateX(-50%) scale(1);
+@keyframes slideRight {
+    0% {
+        left: 10px;
+        opacity: 0;
+        transform: translateY(-50%) scale(0.5);
     }
     50% {
-        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+        transform: translateY(-50%) scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
     }
 }
 
 .ballSale.animate {
-    animation: pulse 0.5s ease-in-out;
+    animation: slideRight 1s ease-out, pulse 0.5s ease-in-out 1s;
 }
 
 /* ==================== MEDIA QUERIES ==================== */
@@ -245,9 +262,98 @@ body {
         display: flex;
     }
 
-    /* Ajustar altura de sección de bolas */
+    /* Ajustar altura de sección de bolas - MÁS PEQUEÑA */
     .balls-section {
-        min-height: 200px;
+        min-height: 100px;
+    }
+
+    .ballSale {
+        height: 60px;
+        width: 60px;
+        font-size: 28px;
+        line-height: 60px;
+    }
+
+    /* Ajustar tabla para que se vea completa */
+    .table-bingo thead td {
+        font-size: 0.95rem;
+        padding: 6px 4px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 0.8rem;
+        padding: 5px 2px;
+    }
+
+    .numbers-section {
+        margin-bottom: 10px;
+    }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 576px) {
+    .header-card {
+        margin: 5px;
+    }
+
+    .balls-section {
+        min-height: 90px; /* Aún más pequeño */
+        padding: 10px;
+    }
+
+    .numbers-section {
+        padding: 10px;
+    }
+
+    .ballSale {
+        height: 55px;
+        width: 55px;
+        font-size: 26px;
+        line-height: 55px;
+    }
+
+    .btn-game-mobile {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+
+    .table-bingo thead td {
+        font-size: 0.85rem;
+        padding: 5px 2px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 0.75rem;
+        padding: 4px 1px;
+    }
+
+    .table-bingo tbody td.marked {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Tablets en vertical */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 720px;
+    }
+
+    /* Canvas arriba completo */
+    .canvas-column {
+        order: -1;
+    }
+
+    /* Bolas salientes y tabla lado a lado */
+    .col-md-6 {
+        width: 50%;
+    }
+
+    .balls-section {
+        min-height: 150px;
+    }
+
+    #myCanvas {
+        max-width: 260px;
     }
 
     .ballSale {
@@ -255,19 +361,84 @@ body {
         width: 70px;
         font-size: 32px;
         line-height: 70px;
-        top: 10px;
     }
 
-    /* Ajustar tabla */
     .table-bingo thead td {
-        font-size: 1rem;
-        padding: 8px 4px;
+        font-size: 1.2rem;
+        padding: 10px;
     }
 
     .table-bingo tbody td {
-        font-size: 0.85rem;
-        padding: 6px 2px;
+        font-size: 0.95rem;
+        padding: 8px 4px;
     }
+}
+
+/* Tablets en horizontal y desktop pequeño */
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+
+    /* Ocultar botones móviles */
+    .mobile-controls {
+        display: none !important;
+    }
+
+    .balls-section {
+        min-height: 500px;
+    }
+
+    .ballSale {
+        height: 80px;
+        width: 80px;
+        font-size: 36px;
+        line-height: 80px;
+        /* En desktop, volver a centrar verticalmente */
+        left: 50%;
+        top: 20px;
+        transform: translateX(-50%);
+    }
+
+    /* Animación diferente para desktop (vertical) */
+    .ballSale.animate {
+        animation: pulse 0.5s ease-in-out;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: translateX(-50%) scale(1);
+        }
+        50% {
+            transform: translateX(-50%) scale(1.1);
+        }
+    }
+
+    .table-bingo thead td {
+        font-size: 1.3rem;
+        padding: 12px;
+    }
+
+    .table-bingo tbody td {
+        font-size: 1rem;
+        padding: 10px 6px;
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    .table-bingo thead td {
+        font-size: 1.4rem;
+    }
+
+    .table-bingo tbody td {
+        font-size: 1.1rem;
+    }
+}
 
     /* Reorganizar layout en móvil */
     .col-12 {
