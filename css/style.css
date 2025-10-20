@@ -125,6 +125,7 @@
     font-size: 1.2rem;
     padding: 10px;
     border: 2px solid #343a40;
+    text-align: center; /* ← CENTRADO AGREGADO */
 }
 
 .table-bingo tbody td {
@@ -177,25 +178,36 @@
 
 /* ==================== MEDIA QUERIES ==================== */
 
-/* MÓVILES - Mostrar todo pero compacto */
+/* MÓVILES - Mostrar todo pero compacto SIN MÁRGENES */
 @media (max-width: 767px) {
     body {
         padding-bottom: 10px;
     }
 
+    /* Eliminar espaciado entre elementos */
+    .row.g-3 {
+        gap: 0 !important;
+        margin: 0;
+    }
+
+    .col-12 {
+        padding: 0 !important;
+    }
+
     /* Canvas compacto en móvil */
     .canvas-section {
         padding: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 0; /* ← SIN MARGEN */
+        border-radius: 10px 10px 0 0; /* Redondear solo arriba */
     }
 
     #myCanvas {
         max-width: 100%;
-        height: 80px; /* Altura fija reducida */
+        height: 85px; /* Ligeramente más alto */
         aspect-ratio: auto;
     }
 
-    /* Botones más compactos */
+    /* Botones más grandes y legibles */
     .controls-container {
         display: flex;
         gap: 10px;
@@ -204,48 +216,54 @@
 
     .btn-game {
         max-width: 45%;
-        padding: 8px 12px;
-        font-size: 0.9rem;
+        padding: 10px 15px; /* ← MÁS PADDING */
+        font-size: 1rem; /* ← TEXTO MÁS GRANDE */
         margin: 0;
+        font-weight: bold;
     }
 
-    /* Sección de bolas MÁS COMPACTA */
+    /* Sección de bolas SIN MARGEN */
     .balls-section {
-        min-height: 80px;
-        padding: 8px;
-        margin-bottom: 10px;
+        min-height: 90px; /* ← LIGERAMENTE MÁS ALTA */
+        padding: 10px;
+        margin-bottom: 0; /* ← SIN MARGEN */
+        border-radius: 0; /* Sin bordes redondeados en medio */
+        border-top: none; /* Eliminar borde superior para unir visualmente */
     }
 
     .ballSale {
-        height: 55px;
-        width: 55px;
-        font-size: 26px;
-        line-height: 55px;
+        height: 65px; /* ← MÁS GRANDE */
+        width: 65px;
+        font-size: 30px; /* ← TEXTO MÁS GRANDE */
+        line-height: 65px;
     }
 
-    /* Tabla compacta */
+    /* Tabla SIN MARGEN y texto más grande */
     .numbers-section {
-        padding: 8px;
-        margin-bottom: 10px;
+        padding: 10px;
+        margin-bottom: 0; /* ← SIN MARGEN */
+        border-radius: 0 0 10px 10px; /* Redondear solo abajo */
+        border-top: none; /* Eliminar borde superior */
     }
 
     .table-bingo thead td {
-        font-size: 0.85rem;
-        padding: 5px 2px;
+        font-size: 1.1rem; /* ← MÁS GRANDE */
+        padding: 8px 4px;
+        text-align: center;
     }
 
     .table-bingo tbody td {
-        font-size: 0.7rem;
-        padding: 4px 1px;
+        font-size: 0.85rem; /* ← MÁS GRANDE */
+        padding: 6px 2px;
     }
 
     .table-bingo tbody td.marked {
-        font-size: 0.75rem !important;
+        font-size: 0.9rem !important; /* ← MÁS GRANDE */
     }
 
-    /* Ajustar márgenes generales */
+    /* Ajustar header */
     .header-card {
-        margin: 5px;
+        margin: 5px 5px 10px 5px;
         padding: 5px;
     }
 
@@ -253,71 +271,85 @@
         max-width: 80px;
     }
 
-    .row.g-3 {
-        gap: 8px !important;
+    /* Contenedor principal sin padding */
+    .container {
+        padding: 0 5px;
     }
 }
 
 /* Móviles muy pequeños (< 400px) */
 @media (max-width: 400px) {
     #myCanvas {
-        height: 70px;
+        height: 75px;
     }
 
     .balls-section {
-        min-height: 70px;
-        padding: 6px;
+        min-height: 80px;
+        padding: 8px;
     }
 
     .ballSale {
-        height: 50px;
-        width: 50px;
-        font-size: 24px;
-        line-height: 50px;
+        height: 58px;
+        width: 58px;
+        font-size: 27px;
+        line-height: 58px;
     }
 
     .btn-game {
-        font-size: 0.85rem;
-        padding: 6px 10px;
+        font-size: 0.95rem;
+        padding: 9px 12px;
     }
 
     .table-bingo thead td {
-        font-size: 0.75rem;
-        padding: 4px 1px;
+        font-size: 1rem;
+        padding: 6px 2px;
     }
 
     .table-bingo tbody td {
-        font-size: 0.65rem;
-        padding: 3px 1px;
+        font-size: 0.8rem;
+        padding: 5px 1px;
+    }
+
+    .table-bingo tbody td.marked {
+        font-size: 0.85rem !important;
     }
 }
 
 /* Móviles en horizontal / Phablets */
 @media (min-width: 576px) and (max-width: 767px) {
     #myCanvas {
-        height: 90px;
+        height: 95px;
         max-width: 260px;
     }
 
     .balls-section {
-        min-height: 90px;
+        min-height: 95px;
     }
 
     .ballSale {
-        height: 60px;
-        width: 60px;
-        font-size: 28px;
-        line-height: 60px;
+        height: 68px;
+        width: 68px;
+        font-size: 32px;
+        line-height: 68px;
+    }
+
+    .btn-game {
+        font-size: 1.05rem;
+        padding: 11px 16px;
     }
 
     .table-bingo thead td {
+        font-size: 1.15rem;
+        padding: 8px 4px;
+    }
+
+    .table-bingo tbody td {
         font-size: 0.9rem;
         padding: 6px 3px;
     }
 
-    .table-bingo tbody td {
-        font-size: 0.75rem;
-        padding: 5px 2px;
+    .table-bingo tbody td.marked {
+        font-size: 0.95rem !important;
     }
 }
 
@@ -354,6 +386,7 @@
     .table-bingo thead td {
         font-size: 1.2rem;
         padding: 10px;
+        text-align: center;
     }
 
     .table-bingo tbody td {
@@ -402,6 +435,7 @@
     .table-bingo thead td {
         font-size: 1.3rem;
         padding: 12px;
+        text-align: center;
     }
 
     .table-bingo tbody td {
@@ -418,6 +452,7 @@
 
     .table-bingo thead td {
         font-size: 1.4rem;
+        text-align: center;
     }
 
     .table-bingo tbody td {
